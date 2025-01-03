@@ -1,25 +1,34 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
-import { AppService, ContactBody } from './app.service';
+import { Body, Controller, Delete, Get, Post } from '@nestjs/common';
+import { AppService, InquiryBody } from './app.service';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
-  @Get("/contacts")
-  async getContacts() {
-    const contacts = await this.appService.getContacts();
+  @Get("/inquiries")
+  async getInquiries() {
+    const inquiries = await this.appService.getInquiries();
     return {
-      message: "Contacts successfully retrieved",
-      results: contacts
+      message: "Inquiries retrieved successfully ",
+      results: inquiries
     }
   }
 
-  @Post("/contacts")
-  async createContact(@Body() data: ContactBody) {
-    const contact = await this.appService.createContact(data);
+  @Post("/inquiries")
+  async createInquiry(@Body() data: InquiryBody) {
+    const contact = await this.appService.createInquiry(data);
     return {
-      message: "Contact successfully created",
+      message: "Inquiry created successfully",
       results: contact
+    }
+  }
+
+  @Delete("/inquiries")
+  async deleteInquiries(@Body() ids: number[] ) {
+    await this.appService.deleteInquiries(ids);
+
+    return {
+      message: "Deleted inquiries successfully"
     }
   }
 }

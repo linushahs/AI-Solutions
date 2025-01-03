@@ -7,7 +7,7 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Contact {
+model Inquiry {
     id        Int      @id @default(autoincrement())
     fullName  String
     contact   String
